@@ -19,10 +19,10 @@ void Lander::draw(sf::RenderWindow& window) const {
 }
 
 void Lander::step(double deltaTime, bool fire) {
-    speed += gravitation;
+    speed += gravitation * deltaTime;
     if(fire)
-        speed -= thrust;
-    hight -= speed;
+        speed -= thrust * deltaTime;
+    hight -= speed * deltaTime;
     lander_sprite.move(sf::Vector2f(0.f,-speed));
 
 }

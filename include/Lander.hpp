@@ -18,6 +18,7 @@ class Lander {
         inline double get_thrust() const {return thrust;}
         inline double get_gravitation() const {return gravitation;}
         inline sf::Vector2f get_sprite_pos() const {return lander_sprite.getPosition();}
+        inline const sf::Sprite& get_sprite() const {return lander_sprite;}
         void step(double deltaTime, bool fire);
         bool setup_sprite();
         void draw(sf::RenderWindow& window) const;
