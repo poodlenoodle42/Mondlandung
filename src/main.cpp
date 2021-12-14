@@ -1,23 +1,40 @@
-#include <SFML/Graphics.hpp>
-#include <iostream>
-
 #include "Lander.hpp"
 #include "Moon.hpp"
+#include "UI.hpp"
+#include <SFML/Graphics.hpp>
+#include <iostream>
+#include <stdio.h>
+
+void setup_ui(const Lander& l, double radius, UI& ui, unsigned int font_size) {
+    sf::Text t;
+    t.setCharacterSize(font_size);
+    t.setFillColor(sf::Color::White);
+    //ui.add_updating_text(std::pair(t,Update_Text([&](){return std::string(sprintf("Height: %f"))})))
+}
+
 int main() {
 
     sf::RenderWindow window(sf::VideoMode(600, 600), "SFML works!");
 
     Moon moon(10000, 1000);
     Lander lander(1000, 100000, 100, 100, 1.5);
+    UI ui(window.getDefaultView());
+
+    sf::Text t;
+    t.setString("Test");
+    t.setCharacterSize(24);
+    t.setFillColor(sf::Color::White);
+    ui.add_static_text(t);
+
     if (!(moon.setup_sprite() && lander.setup_sprite())) {
         std::cout << "Error loading textures and setting up sprites\n";
         return 1;
     }
-    sf::View player_view(sf::Vector2f(200.f, 200.f), lander.get_sprite_pos());
-    player_view = window.getDefaultView();
+    // player_view(sf::Vector2f(200.f, 200.f), lander.get_sprite_pos());
+    sf::View player_view = window.getDefaultView();
 
     player_view.setCenter(lander.get_sprite_pos() + lander.get_sprite().getOrigin());
-    player_view.setSize(sf::Vector2f(2, 2));
+    player_view.setSize(sf::Vector2f(3, 3));
     window.setView(player_view);
     // window.setView(player_view);
     window.setFramerateLimit(60);
@@ -31,9 +48,12 @@ int main() {
                 window.close();
             else if (event.type == sf::Event::KeyPressed) {
                 if (event.key.code == sf::Keyboard::Space) {
-                    boost = true;
+                    //boost = true;
                 }
             }
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+            boost = true;
         }
 
         player_view.setCenter(lander.get_sprite_pos() + lander.get_sprite().getOrigin());
@@ -41,6 +61,7 @@ int main() {
         window.clear();
         moon.draw(window);
         lander.draw(window);
+        ui.draw(window);
         window.display();
 
         lander.step(deltaTime, boost);

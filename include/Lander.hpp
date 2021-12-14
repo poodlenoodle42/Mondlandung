@@ -3,12 +3,15 @@
 class Lander {
 private:
     sf::Sprite lander_sprite;
+    sf::Sprite fire_sprite;
     sf::Texture lander_texture;
+    sf::Texture fire_texture;
     double fuel;
     double hight;
     double speed;
     double thrust;
     double gravitation;
+    bool fire;
 
 public:
     Lander();
@@ -22,5 +25,5 @@ public:
     inline const sf::Sprite& get_sprite() const { return lander_sprite; }
     void step(double deltaTime, bool fire);
     bool setup_sprite();
-    void draw(sf::RenderWindow& window) const;
+    void draw(sf::RenderWindow& window);
 };

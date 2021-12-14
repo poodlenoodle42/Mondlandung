@@ -25,14 +25,28 @@ bool Lander::setup_sprite() {
     size = lander_sprite.getGlobalBounds();
     lander_sprite.setOrigin(sf::Vector2f(size.width / 2, size.height / 2));
     lander_sprite.setPosition(sf::Vector2f(0.f, hight));
-    return success;
+
+    bool fire_success = fire_texture.loadFromFile("assets/fire_texture.png");
+    if (fire_success) {
+        fire_sprite.setTexture(fire_texture);
+    }
+    size = fire_sprite.getLocalBounds();
+    fire_sprite.scale(sf::Vector2f(1 / size.height, 1 / size.height));
+    size = fire_sprite.getGlobalBounds();
+    fire_sprite.setOrigin(sf::Vector2f(size.width / 2, size.height / 2));
+    return success && fire_success;
 }
 
-void Lander::draw(sf::RenderWindow& window) const {
+void Lander::draw(sf::RenderWindow& window) {
+    if (fire) {
+        fire_sprite.setPosition(lander_sprite.getPosition() + sf::Vector2f(0.4f, 0.65f));
+        window.draw(fire_sprite);
+    }
     window.draw(lander_sprite);
 }
 
 void Lander::step(double deltaTime, bool fire) {
+    this->fire = fire;
     speed += gravitation * deltaTime;
     if (fire) {
         speed -= thrust * deltaTime;
