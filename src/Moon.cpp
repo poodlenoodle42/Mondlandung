@@ -1,6 +1,7 @@
 #include "Moon.hpp"
 
 Moon::Moon(double radius, int num_points) : moon_shape(radius,num_points) {
+    moon_shape.setOrigin(radius/2,radius/2);
     moon_shape.setPosition(0.f,-radius);
 }
 bool Moon::setup_sprite() {
