@@ -16,7 +16,7 @@ void UI::add_static_text(const sf::Text& text) {
 void UI::add_updating_text(const std::pair<sf::Text, Update_Text>& text) {
     sf::Text t = text.first;
     t.setFont(font);
-    self_updating_texts.push_back(std::pair(t, text.second));
+    self_updating_texts.push_back(std::pair<sf::Text,Update_Text>(t, text.second));
 }
 
 void UI::draw(sf::RenderWindow& window) {

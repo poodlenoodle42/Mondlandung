@@ -21,15 +21,15 @@ void setup_ui(const Lander& l, double radius, UI& ui, unsigned int font_size) {
     sf::Text t;
     t.setCharacterSize(font_size);
     t.setFillColor(sf::Color::White);
-    ui.add_updating_text(std::pair(t,Update_Text([&](){
+    ui.add_updating_text(std::pair<sf::Text,Update_Text>(t,Update_Text([&](){
         return string_format("Height %.2f",l.get_hight());
     })));
     t.move(0,font_size);
-    ui.add_updating_text(std::pair(t,Update_Text([&](){
+    ui.add_updating_text(std::pair<sf::Text,Update_Text>(t,Update_Text([&](){
         return string_format("Speed %.2f",l.get_speed());
     })));
     t.move(0,font_size);
-    ui.add_updating_text(std::pair(t,Update_Text([&](){
+    ui.add_updating_text(std::pair<sf::Text,Update_Text>(t,Update_Text([&](){
         return string_format("Fuel %.2f",l.get_fuel());
     })));
 
