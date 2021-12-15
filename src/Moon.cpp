@@ -1,9 +1,9 @@
 #include "Moon.hpp"
 
-Moon::Moon(double radius, int num_points)
-    : moon_shape(radius, num_points) {
-    moon_shape.setOrigin(radius / 2, radius / 2);
-    moon_shape.setPosition(0.f, -radius);
+Moon::Moon(double radius, int num_points) {
+    moon_shape = sf::CircleShape(radius, num_points);
+    moon_shape.setOrigin(radius, radius);
+    moon_shape.setPosition(0.f, radius);
 }
 bool Moon::setup_sprite() {
     bool success = moon_texture.loadFromFile("assets/moon_texture.jpg");

@@ -24,7 +24,7 @@ bool Lander::setup_sprite() {
     lander_sprite.scale(sf::Vector2f(1 / size.height, 1 / size.height));
     size = lander_sprite.getGlobalBounds();
     lander_sprite.setOrigin(sf::Vector2f(size.width / 2, size.height / 2));
-    lander_sprite.setPosition(sf::Vector2f(0.f, hight));
+    lander_sprite.setPosition(sf::Vector2f(0.f, -hight));
 
     bool fire_success = fire_texture.loadFromFile("assets/fire_texture.png");
     if (fire_success) {
@@ -46,13 +46,21 @@ void Lander::draw(sf::RenderWindow& window) {
 }
 
 void Lander::step(double deltaTime, bool fire) {
-    this->fire = fire;
-    speed += gravitation * deltaTime;
-    if (fire) {
-        speed -= thrust * deltaTime;
-        fuel -= thrust * deltaTime;
+    if(hight > 0){
+        this->fire = false;
+        speed += gravitation * deltaTime;
+        if (fire && fuel > 0) {
+            speed -= thrust * deltaTime;
+            fuel -= thrust * deltaTime;
+            this->fire = true;
+        }
+        if(fuel < 0) {
+            fuel = 0.0;
+        }
+        hight -= speed * deltaTime;
+    }else if(hight < 0) {
+        hight = 0;
     }
-    hight -= speed * deltaTime;
 
-    lander_sprite.move(sf::Vector2f(0.f, -speed));
+    lander_sprite.setPosition(sf::Vector2f(0.f, -(hight + 1)));
 }
