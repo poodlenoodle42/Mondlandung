@@ -71,7 +71,8 @@ int main() {
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
             boost = true;
-        } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
+        }
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
             player_view.zoom(1 - deltaTime);
         } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
             player_view.zoom(1 + deltaTime);
